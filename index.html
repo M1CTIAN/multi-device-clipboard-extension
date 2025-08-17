@@ -71,5 +71,18 @@
     
     <!-- Your token generator script -->
     <script src="token-generator.js" defer></script>
+
+    <!-- NEW: Manually register the service worker to ensure it's active -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/firebase-messaging-sw.js')
+                .then(function(registration) {
+                    console.log('Service Worker registration successful with scope: ', registration.scope);
+                })
+                .catch(function(err) {
+                    console.log('Service Worker registration failed: ', err);
+                });
+        }
+    </script>
 </body>
 </html>
