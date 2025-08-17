@@ -23,7 +23,7 @@ try {
 
     // This is the URL you will get after deploying your project to Vercel.
     // For local testing, it will be something like http://localhost:3000
-    const VERCEL_API_URL = "https://YOUR_VERCEL_PROJECT_URL/api/send-notification";
+    const VERCEL_API_URL = "https://multi-device-clipboard-extension.vercel.app/api/send-notification";
 
     chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         if (message.type === "textCopied") {

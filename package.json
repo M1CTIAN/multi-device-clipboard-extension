@@ -8,6 +8,6 @@
     "deploy": "vercel --prod"
   },
   "dependencies": {
-    "firebase-admin": "^11.8.0"
+    "firebase-admin": "^13.4.0"
   }
 }

@@ -29,6 +29,12 @@ export default async function handler(req, res) {
   // Construct the FCM message payload
   const payload = {
     token: fcmToken,
+    // The "notification" block creates a visible alert on the phone
+    notification: {
+      title: "New Clipboard Item",
+      body: clipboardText.substring(0, 100), // Show a preview of the text
+    },
+    // The "data" payload is for the automation app to read
     data: {
       clipboardText: clipboardText, // This is the key your phone app will look for
     },
