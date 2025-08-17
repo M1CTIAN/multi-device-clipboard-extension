@@ -6,10 +6,24 @@
 
 <body>
     <button id="loginBtn">Sign In with Google</button>
-    <button id="logoutBtn">Sign Out</button>
-    <input type="file" id="imageInput" accept="image/*">
-    <textarea id="textInput" placeholder="Paste text here"></textarea>
-    <button id="sendBtn">Send</button>
+    <button id="logoutBtn" style="display:none;">Logout</button>
+
+    <div id="settings" style="display:none;">
+        <h4>Phone Sync</h4>
+        <p><small>Enter your phone's FCM token to enable sync.</small></p>
+        <input type="text" id="fcmTokenInput" placeholder="Paste FCM Token here" size="30">
+        <button id="saveTokenBtn">Save</button>
+    </div>
+
+    <hr>
+
+    <!-- Compose new clipboard entry (text or image) -->
+    <div id="compose">
+        <input type="text" id="textInput" placeholder="Type text to send" style="width:100%;box-sizing:border-box;margin-bottom:6px;">
+        <input type="file" id="imageInput" accept="image/*" style="margin-bottom:6px;">
+        <button id="sendBtn" style="width:100%;">Send</button>
+    </div>
+
     <div id="clipboardList"></div>
 
     <link rel="stylesheet" href="styles.css">

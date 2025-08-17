@@ -1,5 +1,13 @@
 {
+  "name": "mcen-extension-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Backend for Multi-device Clipboard Extension",
+  "scripts": {
+    "dev": "vercel dev",
+    "deploy": "vercel --prod"
+  },
   "dependencies": {
-    "firebase": "^12.1.0"
+    "firebase-admin": "^11.8.0"
   }
 }
