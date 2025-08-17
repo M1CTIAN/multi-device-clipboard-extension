@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,15 +16,18 @@
             background-color: #f4f4f9;
             text-align: center;
         }
+
         #container {
             padding: 2rem;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             color: #333;
         }
+
         button {
             background-color: #007bff;
             color: white;
@@ -34,9 +38,11 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
+
         button:hover {
             background-color: #0056b3;
         }
+
         #tokenDisplay {
             margin-top: 20px;
             padding: 10px;
@@ -50,6 +56,7 @@
         }
     </style>
 </head>
+
 <body>
     <div id="container">
         <h1>FCM Token Generator</h1>
@@ -58,11 +65,13 @@
         <pre id="tokenDisplay">Your token will appear here...</pre>
     </div>
 
+
     <!-- UPDATED: Firebase libraries loaded from the official CDN -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging-compat.js"></script>
-    
+
     <!-- Your token generator script, now with 'defer' to ensure it runs after Firebase loads -->
     <script src="token-generator.js" defer></script>
 </body>
+
 </html>
