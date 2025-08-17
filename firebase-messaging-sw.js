@@ -1,8 +1,10 @@
 // This file MUST be in the root of your project for Firebase to find it.
 
-// Import the Firebase scripts
-importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js');
-importScripts('https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging.js');
+// UPDATED: Import the Firebase scripts from the local libs folder
+// Note: The service worker uses the non-compat versions of the file names.
+// This is correct and expected.
+importScripts('/libs/firebase-app-compat.js');
+importScripts('/libs/firebase-messaging-compat.js');
 
 // Use the same Firebase configuration as your main app
 const firebaseConfig = {
@@ -23,15 +25,12 @@ firebase.initializeApp(firebaseConfig);
 const messaging = firebase.messaging();
 
 // This handler is optional, but good practice to include.
-// It allows you to handle notifications that arrive while your web app is in the background.
 messaging.onBackgroundMessage(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
 
-  // Customize the notification here
   const notificationTitle = payload.notification.title || 'New Message';
   const notificationOptions = {
     body: payload.notification.body || 'You have a new message.',
-    icon: '/firebase-logo.png' // Optional: Add an icon
   };
 
   self.registration.showNotification(notificationTitle, notificationOptions);

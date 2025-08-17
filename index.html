@@ -65,13 +65,11 @@
         <pre id="tokenDisplay">Your token will appear here...</pre>
     </div>
 
-
-    <!-- UPDATED: Firebase libraries loaded from the official CDN -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging-compat.js"></script>
-
-    <!-- Your token generator script, now with 'defer' to ensure it runs after Firebase loads -->
+    <!-- UPDATED: Pointing to local Firebase libraries inside the libs folder -->
+    <script src="/libs/firebase-app-compat.js"></script>
+    <script src="/libs/firebase-messaging-compat.js"></script>
+    
+    <!-- Your token generator script -->
     <script src="token-generator.js" defer></script>
 </body>
-
 </html>
