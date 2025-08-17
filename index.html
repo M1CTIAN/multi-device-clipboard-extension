@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCM Token Generator</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+            text-align: center;
+        }
+        #container {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #tokenDisplay {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #eee;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            word-break: break-all;
+            white-space: pre-wrap;
+            min-height: 50px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1>FCM Token Generator</h1>
+        <p>Click the button below to generate your phone's unique notification token.</p>
+        <button id="getTokenBtn">Get My Phone's Token</button>
+        <pre id="tokenDisplay">Your token will appear here...</pre>
+    </div>
+
+    <!-- Firebase libraries -->
+    <!-- Make sure these files are in a 'libs' folder at the root of your project -->
+    <script src="libs/firebase-app-compat.js"></script>
+    <script src="libs/firebase-messaging-compat.js"></script>
+    
+    <!-- Your token generator script -->
+    <script src="token-generator.js"></script>
+</body>
+</html>
