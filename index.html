@@ -62,7 +62,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-messaging-compat.js"></script>
     
-    <!-- Your token generator script -->
-    <script src="token-generator.js"></script>
+    <!-- Your token generator script, now with 'defer' to ensure it runs after Firebase loads -->
+    <script src="token-generator.js" defer></script>
 </body>
 </html>
