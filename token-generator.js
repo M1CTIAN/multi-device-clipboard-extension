@@ -1,5 +1,17 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // All the code is now inside this listener, guaranteeing the page is ready.
+window.addEventListener('load', () => {
+    console.log("Window 'load' event fired. Checking for firebase object.");
+
+    // First, check if the firebase object actually exists.
+    if (typeof firebase === 'undefined' || typeof firebase.initializeApp !== 'function') {
+        console.error("FATAL: The Firebase library did not load correctly before this script ran.");
+        const tokenDisplay = document.getElementById('tokenDisplay');
+        if(tokenDisplay) {
+            tokenDisplay.textContent = "Error: Firebase library failed to load. Please check your network connection and disable any ad-blockers that might be blocking gstatic.com.";
+        }
+        return; // Stop execution if Firebase isn't ready
+    }
+
+    console.log("Firebase is defined. Proceeding with initialization.");
 
     // --- Firebase Configuration ---
     const firebaseConfig = {
@@ -28,10 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const permission = await Notification.requestPermission();
             if (permission !== 'granted') {
                 tokenDisplay.textContent = 'Notification permission was not granted.';
-                console.log('Notification permission not granted.');
                 return;
             }
-
+            
             console.log('Notification permission granted.');
 
             // 2. Get the VAPID key you generated in the Firebase console
@@ -53,17 +64,17 @@ document.addEventListener('DOMContentLoaded', () => {
                         .then(() => alert('Token copied to clipboard!'))
                         .catch(err => console.error('Failed to copy token: ', err));
                 };
-
             } else {
                 // This can happen if the browser doesn't support push notifications
                 // or if something is blocking the service worker.
-                tokenDisplay.textContent = 'No registration token available. Please ensure you are on a secure (HTTPS) connection and that push notifications are not blocked.';
-                console.log('No registration token available.');
+                tokenDisplay.textContent = 'No registration token available. Ensure you are on HTTPS and notifications are not blocked.';
             }
         } catch (err) {
             // Log and display any errors
-            tokenDisplay.textContent = 'An error occurred while retrieving token. Check the console for details.';
+            tokenDisplay.textContent = 'An error occurred while retrieving token. Check the console.';
             console.error('An error occurred while retrieving token. ', err);
         }
     });
+
+    console.log("Event listener for 'getTokenBtn' has been attached.");
 });
