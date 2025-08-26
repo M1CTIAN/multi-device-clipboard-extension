@@ -286,17 +286,12 @@
 </head>
 <body>
     <div class="container">
-        <header class="header">
-            <h1>ClipSync</h1>
-            <div class="settings-toggle-group">
-                <label class="switch">
-                    <input type="checkbox" id="autoSyncToggle">
-                    <span class="slider round"></span>
-                </label>
-                <label for="autoSyncToggle">Auto-Sync</label>
-            </div>
-        </header>
+        <!-- Header -->
+        <div class="header">
+            <h1>Multi-Device Clipboard</h1>
+        </div>
 
+        <!-- Main Input Area -->
         <div class="input-area">
             <textarea id="textInput" placeholder="Type or paste text here..."></textarea>
             <div class="input-actions">
@@ -306,15 +301,18 @@
             </div>
         </div>
 
+        <!-- Phone Sync Area -->
         <div class="phone-sync-area">
-            <h2>Phone Sync</h2>
-            <input type="text" id="phoneNumberInput" placeholder="Enter phone number (e.g., +1234567890)">
+            <h2><img src="icons/phone_icon.png" alt="Phone Icon" class="h2-icon"> <span>Scan with Phone</span></h2>
+            <div id="qrCodeContainer" style="text-align: center; margin-bottom: 16px;">
+                <!-- QR code will be generated here -->
+            </div>
             <div class="settings-toggle-group">
+                <span>Auto-sync new items</span>
                 <label class="switch">
                     <input type="checkbox" id="phoneNotifyToggle">
                     <span class="slider round"></span>
                 </label>
-                <label for="phoneNotifyToggle">Instant Notifications</label>
             </div>
         </div>
 

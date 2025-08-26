@@ -232,21 +232,21 @@ document.addEventListener('DOMContentLoaded', function () {
         const whatsappButton = document.createElement('button');
         whatsappButton.className = 'instant-share-btn';
         whatsappButton.title = 'Instant WhatsApp';
-        whatsappButton.innerHTML = '📱';
+        whatsappButton.innerHTML = '<img src="icons/whatsapp_icon.png" alt="WhatsApp">';
         whatsappButton.addEventListener('click', () => instantShare(encodeURIComponent(item.text || ''), 'whatsapp'));
         shareDiv.appendChild(whatsappButton);
 
         const telegramButton = document.createElement('button');
         telegramButton.className = 'instant-share-btn';
         telegramButton.title = 'Instant Telegram';
-        telegramButton.innerHTML = '✈️';
+        telegramButton.innerHTML = '<img src="icons/telegram_icon.png" alt="Telegram">';
         telegramButton.addEventListener('click', () => instantShare(encodeURIComponent(item.text || ''), 'telegram'));
         shareDiv.appendChild(telegramButton);
 
         const qrButton = document.createElement('button');
         qrButton.className = 'instant-share-btn';
         qrButton.title = 'QR Code';
-        qrButton.innerHTML = '📱';
+        qrButton.innerHTML = '<img src="icons/qr_icon.png" alt="QR Code">';
         qrButton.addEventListener('click', () => generateQRCode(encodeURIComponent(item.text || ''), item.id));
         shareDiv.appendChild(qrButton);
 
@@ -255,9 +255,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- Display Function ---
     function displayClipboardItems(items) {
-        clipboardList.innerHTML = "";
+        const list = document.getElementById('clipboardList');
+        list.innerHTML = '';
         if (items.length === 0) {
-            clipboardList.innerHTML = `
+            list.innerHTML = `
                 <div class="empty-state">
                     <p>No clipboard items yet. Add some content above!</p>
                 </div>
@@ -278,37 +279,37 @@ document.addEventListener('DOMContentLoaded', function () {
             // Add auto-captured indicator
             if (item.auto) {
                 div.classList.add('auto-item');
-                const autoIndicator = document.createElement('span');
-                autoIndicator.textContent = '🤖';
+                const autoIndicator = document.createElement('img');
+                autoIndicator.src = 'icons/auto_icon.png';
                 autoIndicator.className = 'auto-indicator';
                 autoIndicator.title = 'Auto-captured';
                 div.appendChild(autoIndicator);
             }
 
             if (item.text) {
-                const t = document.createElement("p");
-                t.textContent = item.text;
-                t.className = 'clipboard-text';
-                t.onclick = () => {
+                const textElement = document.createElement('p');
+                textElement.className = 'clipboard-text';
+                textElement.textContent = item.text.length > 100 ? item.text.substring(0, 100) + '...' : item.text;
+                textElement.title = 'Click to copy';
+                
+                const copyButton = document.createElement('button');
+                copyButton.className = 'copy-btn';
+                copyButton.innerHTML = '<img src="icons/copy_icon.png" alt="Copy">';
+                copyButton.title = 'Copy to clipboard';
+                copyButton.onclick = (e) => {
+                    e.stopPropagation();
                     navigator.clipboard.writeText(item.text);
-                    t.style.backgroundColor = "#90EE90";
-                    setTimeout(() => t.style.backgroundColor = "", 500);
-
-                    // Show copy confirmation
-                    const confirmation = document.createElement('div');
-                    confirmation.textContent = '📋 Copied!';
-                    confirmation.className = 'notification';
-                    confirmation.style.background = '#17a2b8';
-                    document.body.appendChild(confirmation);
-                    setTimeout(() => confirmation.remove(), 1500);
+                    showNotification('Copied to clipboard!');
                 };
-                div.appendChild(t);
 
-                // Add instant phone share options
-                div.appendChild(generateInstantShareOptions(item));
-            }
+                textElement.onclick = () => {
+                    navigator.clipboard.writeText(item.text);
+                    showNotification('Copied to clipboard!');
+                };
 
-            if (item.image) {
+                div.appendChild(textElement);
+                div.appendChild(copyButton);
+            } else if (item.type === 'image') {
                 const img = document.createElement("img");
                 img.src = item.image;
                 img.className = 'clipboard-image';
@@ -348,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
             div.appendChild(time);
 
-            clipboardList.appendChild(div);
+            list.appendChild(div);
         });
     }
 

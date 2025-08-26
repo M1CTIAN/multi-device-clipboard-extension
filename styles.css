@@ -24,28 +24,35 @@
 
 /* Color Variables */
 :root {
-    --primary-color: #007AFF;
-    --background-color: #f0f2f5;
-    --container-background: #ffffff;
-    --text-color: #333;
-    --text-secondary-color: #666;
-    --border-color: #e0e0e0;
-    --success-color: #28a745;
-    --error-color: #dc3545;
-    --notification-bg: #17a2b8;
+    --primary-color: #367BF5; /* A vibrant blue */
+    --background-color: #F4F7FC;
+    --container-background: #FFFFFF;
+    --text-primary: #1A202C;
+    --text-secondary: #718096;
+    --border-color: #E2E8F0;
+    --success-color: #38A169;
+    --error-color: #E53E3E;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-/* Body and Container */
+/* --- General Styles --- */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', sans-serif;
     background-color: var(--background-color);
     margin: 0;
     width: 380px;
-    color: var(--text-color);
+    color: var(--text-primary);
+    font-size: 14px;
 }
 
 .container {
-    padding: 16px;
+    padding: 20px;
+}
+
+h1, h2 {
+    margin: 0;
+    font-weight: 600;
 }
 
 /* --- Header --- */
@@ -53,31 +60,36 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
 }
 
 .header h1 {
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin: 0;
+    font-size: 22px;
+    color: var(--text-primary);
 }
 
-/* --- Input Area --- */
+/* --- Main Input Area --- */
 .input-area {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 #textInput {
     width: 100%;
     box-sizing: border-box;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid var(--border-color);
     border-radius: 8px;
     font-size: 14px;
-    min-height: 70px;
+    min-height: 80px;
     resize: vertical;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#textInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(54, 123, 245, 0.2);
 }
 
 .input-actions {
@@ -91,69 +103,92 @@ body {
 }
 
 .file-label {
-    padding: 8px 12px;
-    background-color: #f0f0f0;
-    border-radius: 6px;
+    padding: 10px 16px;
+    background-color: var(--container-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
-    color: var(--text-secondary-color);
+    font-weight: 500;
+    transition: background-color 0.2s;
 }
 
 .file-label:hover {
-    background-color: #e0e0e0;
+    background-color: #f9fafb;
 }
 
 .button-primary {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 24px;
     border-radius: 8px;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s;
 }
 
 .button-primary:hover {
-    background-color: #0056b3;
+    background-color: #2563EB;
 }
 
-/* --- Phone Sync Area --- */
-.phone-sync-area {
+/* --- Section Styling --- */
+.phone-sync-area, .clipboard-history {
     background-color: var(--container-background);
     padding: 16px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    border-radius: 12px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
     border: 1px solid var(--border-color);
 }
 
-.phone-sync-area h2 {
+.phone-sync-area h2, .clipboard-history h2 {
     font-size: 16px;
-    margin: 0 0 12px 0;
-    color: var(--text-color);
-}
-
-#phoneNumberInput {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 8px;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    margin-bottom: 12px;
-}
-
-/* --- Settings Toggles (Switch) --- */
-.settings-toggle-group {
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
+.phone-sync-area h2 span {
+    line-height: 1;
+}
+
+.h2-icon {
+    width: 20px;
+    height: 20px;
+}
+
+#phoneNumberInput {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+#phoneNumberInput:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(54, 123, 245, 0.2);
+}
+
+/* --- Toggle Switch --- */
+.settings-toggle-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 .switch {
     position: relative;
     display: inline-block;
-    width: 40px;
+    width: 44px;
     height: 24px;
 }
 
@@ -172,17 +207,19 @@ body {
     bottom: 0;
     background-color: #ccc;
     transition: .4s;
+    border-radius: 24px;
 }
 
 .slider:before {
     position: absolute;
     content: "";
-    height: 16px;
-    width: 16px;
-    left: 4px;
-    bottom: 4px;
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
     background-color: white;
     transition: .4s;
+    border-radius: 50%;
 }
 
 input:checked + .slider {
@@ -190,354 +227,157 @@ input:checked + .slider {
 }
 
 input:checked + .slider:before {
-    transform: translateX(16px);
+    transform: translateX(20px);
 }
 
-.slider.round {
-    border-radius: 24px;
-}
-
-.slider.round:before {
-    border-radius: 50%;
-}
-
-/* --- Clipboard History --- */
-.clipboard-history h2 {
-    font-size: 16px;
-    margin: 0 0 12px 0;
-}
-
+/* --- Clipboard History List --- */
 #clipboardList {
-    max-height: 300px;
+    max-height: 280px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 12px;
+    padding-right: 4px; /* For scrollbar */
 }
 
 .clipboard-item {
-    background-color: var(--container-background);
+    background-color: #f9fafb;
     padding: 12px;
     border-radius: 8px;
-    border: 1px solid var(--border-color);
+    border: 1px solid #e5e7eb;
     position: relative;
+    transition: box-shadow 0.2s;
 }
 
 .clipboard-item:hover {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+/* When hovering over an item, hide the auto-indicator... */
+.clipboard-item:hover .auto-indicator {
+    display: none;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid transparent;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: none; /* Hide by default */
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.clipboard-item:hover .copy-btn {
+    display: flex; /* Show on hover */
+}
+
+.copy-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+.copy-btn img {
+    width: 14px;
+    height: 14px;
 }
 
 .clipboard-item.new-item {
-    background-color: #f0f8ff;
-    border-color: #4CAF50;
+    border-left: 3px solid var(--primary-color);
 }
 
-.clipboard-item.new-item::before {
-    content: 'NEW';
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    background: #28a745;
-    color: white;
-    font-size: 8px;
-    padding: 2px 4px;
-    border-radius: 4px;
-}
-
-.clipboard-item.auto-item {
-    border-left: 3px solid #6f42c1;
-}
-
-.auto-indicator {
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    font-size: 12px;
-}
-
-/* Clipboard Text */
 .clipboard-text {
+    margin: 0 0 10px 0;
     cursor: pointer;
-    margin: 0 0 8px 0;
-    font-size: 13px;
-    line-height: 1.4;
     word-break: break-word;
-    transition: background-color 0.2s;
-    padding: 4px;
-    border-radius: 4px;
+    color: var(--text-primary);
+    padding-right: 30px; /* Add space for the icons */
 }
 
-.clipboard-text:hover {
-    background: #f0f2ff;
-}
-
-/* Clipboard Images */
 .clipboard-image {
     max-width: 100%;
     border-radius: 6px;
     cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.clipboard-image:hover {
-    transform: scale(1.02);
-}
-
-/* Clipboard Time */
-.clipboard-time {
-    color: #6c757d;
-    font-size: 10px;
-    margin-top: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* Phone Notification Popup */
-.phone-notification-popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    z-index: 1000;
-    animation: slideIn 0.3s ease-out;
-}
-
-.notification-content {
-    padding: 16px;
-    min-width: 250px;
-}
-
-.notification-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 8px;
-    font-weight: 600;
+    border: 1px solid var(--border-color);
 }
 
-.notification-text {
-    background: #f8f9fa;
-    padding: 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    margin: 8px 0;
-    word-break: break-word;
-}
-
-.notification-actions {
+.clipboard-time {
+    font-size: 11px;
+    color: var(--text-secondary);
     display: flex;
-    gap: 4px;
-    margin-top: 12px;
+    justify-content: space-between;
+    margin-top: 8px;
 }
 
-.notification-actions button {
-    flex: 1;
-    padding: 6px 8px;
-    border: none;
-    border-radius: 4px;
-    font-size: 10px;
-    cursor: pointer;
-    background: #667eea;
-    color: white;
+.auto-indicator {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
 }
 
-.skip-btn {
-    background: #6c757d !important;
-}
-
-/* Instant Share Options */
+/* --- Share Buttons --- */
 .instant-share-options {
     display: flex;
-    gap: 4px;
-    margin: 8px 0;
-    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
 }
 
 .instant-share-btn {
-    background: #667eea;
-    border: none;
+    background: var(--container-background);
+    border: 1px solid var(--border-color);
     border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    font-size: 10px;
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
     cursor: pointer;
-    color: white;
-    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, border-color 0.2s;
 }
 
 .instant-share-btn:hover {
-    transform: scale(1.1);
+    background-color: #f0f2f5;
+    border-color: #cdd2d9;
 }
 
-/* QR Code */
+.instant-share-btn img {
+    width: 18px;
+    height: 18px;
+}
+
+/* --- QR Code Popup --- */
 .qr-code-container {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0,0,0,0.7);
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     z-index: 1000;
 }
 
 .qr-code-popup {
     background: white;
-    padding: 20px;
+    padding: 24px;
     border-radius: 12px;
     text-align: center;
-    max-width: 300px;
-    position: relative;
-}
-
-.qr-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.qr-header h3 {
-    margin: 0;
-    font-size: 16px;
-}
-
-.close-qr {
-    background: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-    font-size: 14px;
-    line-height: 1;
-}
-
-.qr-code-display {
-    margin: 15px 0;
-}
-
-.qr-code-display img {
-    max-width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-}
-
-.qr-text-preview {
-    background: #f8f9fa;
-    padding: 8px;
-    border-radius: 4px;
-    font-size: 10px;
-    margin: 8px 0;
-    word-break: break-word;
-    max-height: 60px;
-    overflow-y: auto;
-    border: 1px solid #dee2e6;
-}
-
-.qr-instructions {
-    font-size: 11px;
-    color: #666;
-    margin: 10px 0 0 0;
-    line-height: 1.4;
-}
-
-.loading {
-    text-align: center;
-    color: #6c757d;
-    font-style: italic;
-    padding: 20px;
-}
-
-.error {
-    text-align: center;
-    color: #dc3545;
-    padding: 20px;
-    background: #f8d7da;
-    border: 1px solid #f5c6cb;
-    border-radius: 4px;
-}
-
-/* Phone Sharing */
-.phone-share-options {
-    margin: 8px 0;
-    padding: 8px 0;
-    border-top: 1px solid #eee;
-}
-
-.share-buttons {
-    display: flex;
-    gap: 4px;
-    flex-wrap: wrap;
-}
-
-.share-btn {
-    padding: 4px 8px;
-    border: none;
-    border-radius: 12px;
-    font-size: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-    flex: 1;
-    min-width: 60px;
-}
-
-.whatsapp-btn {
-    background: #25D366;
-    color: white;
-}
-
-.telegram-btn {
-    background: #0088cc;
-    color: white;
-}
-
-.email-btn {
-    background: #4285f4;
-    color: white;
-}
-
-.qr-btn {
-    background: #6c757d;
-    color: white;
-}
-
-.share-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-/* Test Section */
-.test-section {
-    padding: 8px 16px;
-    background: #fff3cd;
-    border: 1px solid #ffeaa7;
-    border-left: 4px solid #f39c12;
-    margin: 4px 0;
-}
-
-.test-btn {
-    background: #f39c12;
-    color: white;
-    border: none;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 10px;
-    cursor: pointer;
-    margin: 2px;
-    transition: background-color 0.2s;
-}
-
-.test-btn:hover {
-    background: #e67e22;
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
 }
 
 /* --- Notifications --- */
@@ -546,10 +386,12 @@ input:checked + .slider:before {
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    padding: 10px 20px;
+    padding: 12px 24px;
     border-radius: 8px;
     color: white;
     background-color: var(--success-color);
     z-index: 1001;
     font-size: 14px;
+    font-weight: 500;
+    box-shadow: var(--shadow-md);
 }
