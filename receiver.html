@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clipboard Receiver</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f0f2f5; text-align: center; }
+        .container { padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        #status { font-size: 1.2em; color: #333; min-height: 24px; /* Reserve space */ }
+        #copyButton { display: none; margin-top: 20px; padding: 12px 24px; font-size: 1em; color: white; background-color: #007bff; border: none; border-radius: 8px; cursor: pointer; }
+        #copyButton:active { background-color: #0056b3; }
+        .message { font-weight: 500; margin-top: 10px; }
+        .message.success { color: #28a745; }
+        .message.error { color: #dc3545; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Clipboard Sync</h1>
+        <p id="status">Listening for new clipboard items...</p>
+        <button id="copyButton">Tap to Copy</button>
+        <p id="message" class="message"></p> <!-- Dedicated message element -->
+    </div>
+
+    <!-- Include Firebase SDKs -->
+    <script src="libs/firebase-app-compat.js"></script>
+    <script src="libs/firebase-firestore-compat.js"></script>
+    
+    <script>
+        // --- Firebase Configuration ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyDzoPpsAradDUMiTHGj6GpygIq87sEVFWA",
+            authDomain: "mcen-14838.firebaseapp.com",
+            databaseURL: "https://mcen-14838-default-rtdb.firebaseio.com",
+            projectId: "mcen-14838",
+            storageBucket: "mcen-14838.firebasestorage.app",
+            messagingSenderId: "34872421436",
+            appId: "1:34872421436:web:f43a1412356d0af3e16739",
+            measurementId: "G-PD6Z9K8Z8R"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        const statusEl = document.getElementById('status');
+        const copyButton = document.getElementById('copyButton');
+        const messageEl = document.getElementById('message'); // Get the message element
+        let latestText = '';
+
+        // Listen for real-time updates
+        db.collection('clipboard').doc('latest')
+            .onSnapshot((doc) => {
+                messageEl.textContent = ''; // Clear previous messages
+                if (doc.exists) {
+                    const data = doc.data();
+                    console.log("Received new item:", data);
+                    
+                    if (data.text) {
+                        latestText = data.text;
+                        statusEl.textContent = 'New text received!';
+                        copyButton.style.display = 'block';
+                    } else if (data.image) {
+                        statusEl.textContent = 'Image received (cannot copy images)';
+                        copyButton.style.display = 'none';
+                    }
+                } else {
+                    console.log("No data");
+                }
+            }, (error) => {
+                console.error("Error listening to Firestore:", error);
+                statusEl.textContent = 'Error connecting to sync service.';
+                messageEl.textContent = 'Please check your connection and refresh.';
+                messageEl.className = 'message error';
+            });
+
+        copyButton.addEventListener('click', () => {
+            if (navigator.clipboard && latestText) {
+                navigator.clipboard.writeText(latestText).then(() => {
+                    messageEl.textContent = '✅ Copied to clipboard!';
+                    messageEl.className = 'message success';
+                    statusEl.textContent = 'Listening for new clipboard items...';
+                    copyButton.style.display = 'none';
+                }).catch(err => {
+                    console.error('Failed to copy text: ', err);
+                    messageEl.textContent = '❌ Copy failed. Please try again.';
+                    messageEl.className = 'message error';
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

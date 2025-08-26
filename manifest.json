@@ -2,36 +2,30 @@
     "manifest_version": 3,
     "name": "Multi-Device Clipboard",
     "version": "1.0",
+    "description": "Sync clipboard content across devices.",
     "permissions": [
         "storage",
-        "activeTab",
-        "scripting",
+        "tabs",
         "clipboardRead",
-        "clipboardWrite",
-        "identity"
+        "notifications"
     ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        }
+    },
     "background": {
         "service_worker": "background.js"
     },
-    "action": {
-        "default_popup": "popup.html"
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
     },
-    "content_scripts": [
-        {
-            "matches": [
-                "<all_urls>"
-            ],
-            "js": [
-                "content.js"
-            ]
-        }
-    ],
-    "oauth2": {
-        "client_id": "34872421436-29srao2q80oe3981dve7gcu2jn4d4es8.apps.googleusercontent.com",
-        "scopes": [
-            "openid",
-            "email",
-            "profile"
-        ]
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'self'; img-src 'self' data: https://api.qrserver.com;"
     }
 }
